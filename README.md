@@ -1,4 +1,4 @@
-# 🌍 Fast & Simple SlimeWorldManager Temporary World API
+## 🌍 Fast & Simple SWM Temporary World API
 
 Easily create **temporary worlds** using the power of [SlimeWorldManager](https://github.com/Grinderwolf/Slime-World-Manager) and [SnapAPI](https://github.com/sxbide/SnapAPI).  
 Perfect for minigames, isolated environments, or fast-loading sandbox worlds.
