@@ -1,11 +1,9 @@
 package com.github.sxbi.snap;
 
-import com.grinderwolf.swm.api.loaders.SlimeLoader;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.bukkit.entity.Slime;
 
 @Getter
 @Setter
@@ -34,7 +32,10 @@ public class SnapWorldTemplate {
      * Determines whether the cloned world should be saved.
      * <p>
      * If {@code false}, the world will not persist after a server restart—ideal for temporary or throwaway instances.
+     *
+     * @Deprecated currently not implemented
      */
+    @Deprecated
     private boolean save;
 
     /**
