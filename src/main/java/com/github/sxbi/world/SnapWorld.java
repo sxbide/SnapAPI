@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.bukkit.Bukkit;
 
 /**
  * Represents a loaded or cloned SlimeWorld instance with metadata.
@@ -29,4 +30,8 @@ public class SnapWorld {
      * PVP settings, and other world-specific flags.
      */
     private SlimeWorld.SlimeProperties slimeProperties;
+
+    public boolean alreadyExists() {
+        return Bukkit.getWorld(worldName) != null;
+    }
 }

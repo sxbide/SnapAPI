@@ -22,6 +22,11 @@ public record SnapWorldCreator(SnapWorlds snapWorlds) {
 
     public void constructWorld(SnapWorld snapWorld, SnapWorldTemplate snapWorldTemplate) {
 
+        if(snapWorld.alreadyExists()) {
+            this.snapWorlds.logger().warning("A Snapworld with the name " + snapWorld.worldName() + " already exists.");
+            return;
+        }
+
         AtomicReference<SlimeLoader> slimeLoader = new AtomicReference<>();
 
         if (snapWorldTemplate.snapWorldLoader().equals(SnapWorldLoader.MONGODB)) {
@@ -68,6 +73,12 @@ public record SnapWorldCreator(SnapWorlds snapWorlds) {
     }
 
     public void constructWorld(SnapWorld snapWorld, SnapWorldTemplate snapWorldTemplate, Consumer<SlimeWorld> runAfter) {
+
+        if(snapWorld.alreadyExists()) {
+            this.snapWorlds.logger().warning("A Snapworld with the name " + snapWorld.worldName() + " already exists.");
+            return;
+        }
+
         CompletableFuture.supplyAsync(() -> {
 
             SlimeWorld slimeWorld;
