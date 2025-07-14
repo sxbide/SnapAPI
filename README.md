@@ -71,7 +71,7 @@ public class TestCommand implements CommandExecutor {
                             .build())
                     .build();
 
-            SnapWorldTemplate snapWorldTemplate = SnapWorldTemplate.as("palermo", SnapWorldLoader.FILE, true);
+            SnapWorldTemplate snapWorldTemplate = SnapWorldTemplate.as("palermo", SnapWorldLoader.FILE);
 
             if(snapWorld.alreadyExists()) {
                 player.sendMessage("The Testworld already exists");
