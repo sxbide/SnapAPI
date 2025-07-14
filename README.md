@@ -22,18 +22,21 @@ Perfect for minigames, isolated environments, or fast-loading sandbox worlds.
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
+
+    // You'll also need to implement following so SnapAPI can use the SWM API.
+    maven { url "https://repo.glaremasters.me/repository/concuncan/" }
+
 }
 
 dependencies {
     implementation 'com.github.sxbide:SnapAPI:{VERSION}'
+
+    // You'll also need to implement following so SnapAPI can use the SWM API.
+    compileOnly group: "com.grinderwolf", name: "slimeworldmanager-api", version: "2.2.1";
+    compileOnly "com.grinderwolf:slimeworldmanager-plugin:2.2.0"
 }
 
-// You'll also need to implement following so SnapAPI can use the SWM API.
 
-maven { url "https://repo.glaremasters.me/repository/concuncan/" }
-
-compileOnly group: "com.grinderwolf", name: "slimeworldmanager-api", version: "2.2.1";
-compileOnly "com.grinderwolf:slimeworldmanager-plugin:2.2.0"
 
 ```
 ---
