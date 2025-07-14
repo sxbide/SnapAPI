@@ -35,9 +35,6 @@ dependencies {
     compileOnly group: "com.grinderwolf", name: "slimeworldmanager-api", version: "2.2.1";
     compileOnly "com.grinderwolf:slimeworldmanager-plugin:2.2.0"
 }
-
-
-
 ```
 ---
 ## 💻 Example Usage of **SnapAPI**
