@@ -3,6 +3,8 @@
 Easily create **temporary worlds** using the power of [SlimeWorldManager](https://github.com/Grinderwolf/Slime-World-Manager) and [SnapAPI](https://github.com/sxbide/SnapAPI).  
 Perfect for minigames, isolated environments, or fast-loading sandbox worlds.
 
+Java 24 is required when using the api.
+
 ---
 
 ## ⚡ Features
