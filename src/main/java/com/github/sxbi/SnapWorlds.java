@@ -2,11 +2,8 @@ package com.github.sxbi;
 
 import com.github.sxbi.world.SnapWorldCreator;
 import com.grinderwolf.swm.api.SlimePlugin;
-import com.grinderwolf.swm.api.loaders.SlimeLoader;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 
 import java.util.logging.Logger;
@@ -15,9 +12,7 @@ import java.util.logging.Logger;
 @Accessors(fluent = true)
 public class SnapWorlds {
 
-    public SlimePlugin slimePlugin;
-    private SlimeLoader slimeLoader;
-
+    private final SlimePlugin slimePlugin;
     private SnapWorldCreator worldCreator;
 
     private final Logger logger = Logger.getLogger("SnapWorlds");
@@ -31,6 +26,7 @@ public class SnapWorlds {
         }
 
         this.worldCreator = new SnapWorldCreator(this);
+        this.logger.info("SnapWorlds API successfully initialized!");
     }
 
 }

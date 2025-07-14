@@ -14,15 +14,22 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
-public record SnapWorldCreator(SnapWorlds snapWorlds) {
+public final class SnapWorldCreator {
+
+    private final SnapWorlds snapWorlds;
+
+    public SnapWorldCreator(SnapWorlds snapWorlds) {
+        this.snapWorlds = snapWorlds;
+    }
 
     public void constructWorld(SnapWorld snapWorld, SnapWorldTemplate snapWorldTemplate) {
 
-        if(snapWorld.alreadyExists()) {
+        if (snapWorld.alreadyExists()) {
             this.snapWorlds.logger().warning("A Snapworld with the name " + snapWorld.worldName() + " already exists.");
             return;
         }
@@ -30,10 +37,10 @@ public record SnapWorldCreator(SnapWorlds snapWorlds) {
         AtomicReference<SlimeLoader> slimeLoader = new AtomicReference<>();
 
         if (snapWorldTemplate.snapWorldLoader().equals(SnapWorldLoader.MONGODB)) {
-            slimeLoader.set(this.snapWorlds.slimePlugin.getLoader("mongodb"));
+            slimeLoader.set(this.snapWorlds.slimePlugin().getLoader("mongodb"));
         }
         if (snapWorldTemplate.snapWorldLoader().equals(SnapWorldLoader.FILE)) {
-            slimeLoader.set(this.snapWorlds.slimePlugin.getLoader("file"));
+            slimeLoader.set(this.snapWorlds.slimePlugin().getLoader("file"));
         }
 
         if (slimeLoader.get() == null) {
@@ -74,8 +81,22 @@ public record SnapWorldCreator(SnapWorlds snapWorlds) {
 
     public void constructWorld(SnapWorld snapWorld, SnapWorldTemplate snapWorldTemplate, Consumer<SlimeWorld> runAfter) {
 
-        if(snapWorld.alreadyExists()) {
+        if (snapWorld.alreadyExists()) {
             this.snapWorlds.logger().warning("A Snapworld with the name " + snapWorld.worldName() + " already exists.");
+            return;
+        }
+
+        AtomicReference<SlimeLoader> slimeLoader = new AtomicReference<>();
+
+        if (snapWorldTemplate.snapWorldLoader().equals(SnapWorldLoader.MONGODB)) {
+            slimeLoader.set(this.snapWorlds.slimePlugin().getLoader("mongodb"));
+        }
+        if (snapWorldTemplate.snapWorldLoader().equals(SnapWorldLoader.FILE)) {
+            slimeLoader.set(this.snapWorlds.slimePlugin().getLoader("file"));
+        }
+
+        if (slimeLoader.get() == null) {
+            this.snapWorlds.logger().warning(snapWorldTemplate.snapWorldLoader().name() + "is not configured correctly!");
             return;
         }
 
@@ -88,7 +109,7 @@ public record SnapWorldCreator(SnapWorlds snapWorlds) {
                 try {
 
                     slimeWorld = this.snapWorlds.slimePlugin().loadWorld(
-                            this.snapWorlds.slimeLoader(),
+                            slimeLoader.get(),
                             snapWorldTemplate.templateName(),
                             snapWorld.slimeProperties());
 
@@ -132,4 +153,24 @@ public record SnapWorldCreator(SnapWorlds snapWorlds) {
         bukkitWorld.getPlayers().forEach(player -> player.teleport(Bukkit.getWorlds().getFirst().getSpawnLocation()));
         return Bukkit.unloadWorld(worldName, save);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (SnapWorldCreator) obj;
+        return Objects.equals(this.snapWorlds, that.snapWorlds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(snapWorlds);
+    }
+
+    @Override
+    public String toString() {
+        return "SnapWorldCreator[" +
+                "snapWorlds=" + snapWorlds + ']';
+    }
+
 }
